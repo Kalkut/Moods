@@ -112,7 +112,7 @@ footer {
       background-color: #2B2B2B;
       width: 35.7px;
       height: 27px;
-      left: 100px;
+      left: 1075px;
       top: 30px;
       font-family: futurastd;
       font-size: 23px;
@@ -133,7 +133,7 @@ footer {
       overflow: hidden;
       min-width: 1000px;
       min-height: 72px;
-      left: 170px;
+      left: 50px;
       position: absolute; }
     .moods .moods-topbar .resources {
       max-height: 72px;
@@ -310,78 +310,16 @@ footer {
         background-color: #FFFFFF; }
         .moods .moods-container .moods-container-view .cover .case {
           border: 1px dotted #D5D5D5; }
-      .moods .moods-container .moods-container-view .view.stories, .moods .moods-container .moods-container-view .view.moods {
+      .moods .moods-container .moods-container-view .view {
         width: 80%;
         left: 83px;
         position: absolute;
         height: 100%;
         background-color: #FFFFFF; }
-        .moods .moods-container .moods-container-view .view.stories .header, .moods .moods-container .moods-container-view .view.moods .header {
-          width: 100%;
-          height: 12%;
-          position: absolute; }
-          .moods .moods-container .moods-container-view .view.stories .header .case, .moods .moods-container .moods-container-view .view.moods .header .case {
-            top: 30%; }
-          .moods .moods-container .moods-container-view .view.stories .header .title, .moods .moods-container .moods-container-view .view.moods .header .title {
-            width: 60%;
-            top: 23%;
-            left: 20%;
-            position: absolute;
-            outline: none;
-            font-size: 42px;
-            font-family: futurastd;
-            text-align: center;
-            color: #8186bc; }
-      .moods .moods-container .moods-container-view .view.moods .caseBox {
-        top: 17%;
-        left: 15%; }
-      .moods .moods-container .moods-container-view .view.moods .label {
-        width: 170px;
-        height: 30px;
-        font-size: 18px;
-        color: #FFFFFF;
-        padding: 15px 25px 15px 15px;
-        opacity: 0.7;
-        position: absolute;
-        z-index: 1;
-        outline: none;
-        background-color: #444444; }
-      .moods .moods-container .moods-container-view .view.moods .header .case {
-        left: 10%; }
-      .moods .moods-container .moods-container-view .view.stories .case {
-        top: 17%;
-        left: 10%; }
-      .moods .moods-container .moods-container-view .view.stories .bp-commentaries {
-        right: 25px;
-        position: absolute;
-        width: 200px;
-        height: 450px;
-        top: 17%;
-        z-index: 1; }
-        .moods .moods-container .moods-container-view .view.stories .bp-commentaries .comment {
-          min-height: 10px;
-          width: 100%;
-          position: relative;
-          float: left; }
-          .moods .moods-container .moods-container-view .view.stories .bp-commentaries .comment .pin-picto {
-            width: 10px;
-            height: 10px;
-            background-color: #CC00DD;
-            float: left; }
-            .moods .moods-container .moods-container-view .view.stories .bp-commentaries .comment .pin-picto .textfield {
-              width: 188px;
-              float: left;
-              outline: none; }
-          .moods .moods-container .moods-container-view .view.stories .bp-commentaries .comment .response {
-            width: 80%;
-            left: 25px;
-            position: relative; }
-            .moods .moods-container .moods-container-view .view.stories .bp-commentaries .comment .response .pin-picto {
-              background-color: #FF0000; }
-            .moods .moods-container .moods-container-view .view.stories .bp-commentaries .comment .response .textfield {
-              width: 150px;
-              float: left;
-              outline: none; }
+        .moods .moods-container .moods-container-view .view .case {
+          top: 5%;
+          left: 5%;
+          border: 1px dotted #D5D5D5; }
       .moods .moods-container .moods-container-view .moods-arrow {
         color: #FFFFFF;
         position: absolute;

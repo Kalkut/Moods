@@ -21,7 +21,8 @@ sand.define('Moods/Resource', [
 		},
 
 		'+init' : function(input) {
-
+			this.static = input.static;
+			this.title = input.title;
 			this.el = r.toDOM({
 				tag : '.resource',
 				children : [
@@ -57,6 +58,9 @@ sand.define('Moods/Resource', [
 			this.handle.drag({
 				start : function (e){
 					e.preventDefault();
+					if(this.static) this.el.parentNode.staticProcess(this);
+					
+					if(this.el.parentNode.getAttribute("side") === "leftbar") this.el.parentNode.changePage(this.title);
 
 					this.buffEl = this.el.cloneNode(true);
 					$('.moods')[0].appendChild(this.buffEl);
@@ -93,27 +97,21 @@ sand.define('Moods/Resource', [
 				}.wrap(this),
 				drag : function (e) {
 
+					if(this.static) return;
 
 					this.buffEl.style.left = e.xy[0] - this.oL /*+ $(document.body).scrollLeft()*/ - this.cOffsetX + "px";
 					this.buffEl.style.top = e.xy[1] - this.oT /*+	$(document.body).scrollTop()*/ - this.cOffsetY + "px";
 
 				}.wrap(this),
 				end: function (e) {
+					if(this.static) return;
 					this.hint(e,this.hintDiv);
-					if(this.hintDiv.parentNode && this.hintDiv.parentNode.getAttribute("side") == "leftbar" && this.fParent.getAttribute("side") != "leftbar") {
-
-						var dropIndex = [].concat.apply([],this.hintDiv.parentNode.childNodes).indexOf(this.hintDiv);
-						this.hintDiv.parentNode.onResourceDropped(this.id || "no Id",dropIndex);
-
-					} else if (this.hintDiv.parentNode && this.hintDiv.parentNode.getAttribute("side") == "leftbar" && this.fParent.getAttribute("side") == "leftbar"){
-
-						var dropIndex = [].concat.apply([],this.hintDiv.parentNode.childNodes).indexOf(this.hintDiv); //Index d'insertion
-						this.hintDiv.parentNode.onResourceSwaped(this.sIndex, dropIndex)
-
-					} else if(e.target.className == 'case') e.target.refresh(this.src);
+					
+					if(e.target.className == 'case' && e.target.refresh) e.target.refresh(this.src);
+					else if (e.target.parentNode.className == 'case' && e.target.parentNode.refresh) e.target.parentNode.refresh(this.src);
 
 					if(this.hintDiv.parentNode) this.hintDiv.parentNode.removeChild(this.hintDiv);
-					$('.moods')[0].removeChild(this.buffEl);
+					if(this.buffEl && this.buffEl.parentNode) this.buffEl.parentNode.removeChild(this.buffEl);
 
 					this.el.style.pointerEvents = "auto"
 					this.el.style.left = null;

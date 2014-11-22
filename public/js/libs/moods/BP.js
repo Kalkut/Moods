@@ -105,7 +105,7 @@ sand.define('Moods/BP',['DOM/toDOM','Seed','DOM/handle'], function (r) {
 			})
 			scope.textfield.focus();
 
-			return newComment;
+			return [newComment,scope];
 		},
 
 		deleteComment : function (comment) {
@@ -148,6 +148,58 @@ sand.define('Moods/BP',['DOM/toDOM','Seed','DOM/handle'], function (r) {
 			},scope)
 
 			comment.appendChild(newResponse);
+		},
+
+		setBP : function (comments) {
+			/*DATA MODEL
+				{
+					comment :  
+					{
+						picto : { left , top },
+						text : "",
+						responses : [
+						{
+							picto : { left , top },
+							text : "",
+						}
+						]
+					}
+				}
+			*/
+
+			if(this.el) $(this.el).empty();
+			if(this.el.parentNode) {
+				var fParent = this.el.parentNode;
+				this.el.parentNode.removeChild(this.el);
+			}
+			this.scope = {};
+			this.el = r.toDOM('.bp-commentaries',this.scope);
+			
+			var commentAndScope = this.addComment();
+			var comment = commentAndScope[0];
+			var commentScope = commentAndScope[1];
+
+			commentScope.textfield.innerHTML = comments/*[i]*/.text;
+			commentScope['pin-picto'].style.position = "relative";
+			commentScope['pin-picto'].style.left = comments/*[i]*/.picto.left;
+			commentScope['pin-picto'].style.top = comments/*[i]*/.picto.top;
+			if( parseInt(commentScope['pin-picto'].style.top) || parseInt(commentScope['pin-picto'].style.left) ){
+				var pinPicto = commentScope['pin-picto'];
+				pinPicto.line = r.toDOM({
+							tag : '.line',
+							style : {
+								position : "absolute",
+								height : "1px",
+								backgroundColor : "#000000",
+							}
+				})
+				$(pinPicto.line).insertBefore(pinPicto.parentNode.childNodes[0])
+				pinPicto.line.style.transformOrigin = "0 0";
+				pinPicto.line.style.transform = "rotate("+Math.atan2(parseInt(pinPicto.style.top)+0.5*$(pinPicto).height(),(parseInt(pinPicto.style.left)+0.5*$(pinPicto).width()))*180/Math.PI+"deg)";
+				pinPicto.line.style.width = Math.sqrt(Math.pow(parseInt(pinPicto.style.left)+0.5*$(pinPicto).width(),2) + Math.pow(parseInt(pinPicto.style.top)+0.5*$(pinPicto).height(),2)) +"px";
+			}
+
+			if(fParent) fParent.appendChild(this.el);
 		}
 	})
 })

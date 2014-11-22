@@ -157,7 +157,7 @@ sand.define('Moods/Case', [
 					if( this.potentialRect.segX.length() >= this.divRect.segX.length() && this.potentialRect.segY.length() >= this.divRect.segY.length()  )  {
 
 						this.zoom(this.lastFactor);
-						this.fire('case:zoomFactor',this.staticPoint);
+						this.fire('case:zoomFactor',this.staticPoint,this.lastFactor);
 						this.fire('case:imageMovedPx',this.img.style.left,this.img.style.top,this.img.style.width,this.img.style.height);
 						this.fire('case:imageMovedInt',parseInt(this.img.style.left),parseInt(this.img.style.top),parseInt(this.img.style.width),parseInt(this.img.style.height));
 
@@ -354,15 +354,32 @@ sand.define('Moods/Case', [
 		},
 
 		setState : function (state) {
-				this.imgRect = jQuery.extend({},state.rect)
-				this.img.style.left = state.left;
-				this.img.style.top = state.top;
-				this.img.style.width = state.width;
-				this.img.style.height = state.height;
+				if(state) {
+					this.changeImage(src);
+					this.imgRect = jQuery.extend({},state.imgRect);
+					this.divRect = jQuery.extend({},state.divRect);
+					this.img.style.left = state.left;
+					this.img.style.top = state.top;
+					this.img.style.width = state.width;
+					this.img.style.height = state.height;
+				}
+		},
+
+		saveState : function () {
+				var state;
+				state.divRect = jQuery.extend({},this.divRect);
+				state.imgRect = jQuery.extend({},this.imgRect);
+				state.left = this.img.style.left; 
+				state.top = this.img.style.top;
+				state.width = this.img.style.width;
+				state.height = this.img.style.height;
+				state.src = this.img.src;
+				return state;
 		},
 
 		changeImage : function (src) {
 			this.img.src = src;
+			this.src;
 			this.loadCase();
 		}
 	})

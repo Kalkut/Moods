@@ -2,8 +2,6 @@ sand.define('Moods/Cover', [
   'Seed',
   'DOM/toDOM',
   'DataPackage/Controller->DP',
-  'Moods/Upload',
-  'Moods/View',
   'Moods/Case'
 ], function(r) {
 
@@ -11,7 +9,7 @@ sand.define('Moods/Cover', [
 
     '+init' : function (opt) {
       
-      this.layout = opt.layout || [[100,100,200,200],[400,100,200,200],[100,325,200,200],[400,325,200,200]];
+      this.layout = opt.layout || [[50,100,200,200],[350,100,200,200],[50,325,200,200],[350,325,200,200]];
       this.el = r.toDOM('.cover');
 
       for (var i = 0, n = this.layout.length; i < n; i++) {

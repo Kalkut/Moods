@@ -69,10 +69,47 @@ var Bar = r.Seed.extend({
         this.query('dp').resources.on('insert', this.insertResource.bind(this));
         this.query('dp').resources.on('delete', this.deleteResource.bind(this));
       } else if (this.side == "leftbar") {
+        this.resourcesDiv.appendChild(this.create(r.Resource,{ title : "Cover", src : "", static : true },"cover").el);
+        
+        /*this.resourcesDiv.staticProcess = function () {
+          if(resource == this.addPage) this.query('dp').pages.insert({ src : "", index : this.resourcesDiv.childNodes.length - 1});
+        }.bind(this);*/
+
+        this.addPage = r.toDOM({
+          tag : '.resource',
+          children : [
+            {
+              tag : '.picto',
+              style : {
+                backgroundImage : 'url(' + "" + ')',
+              }
+            },
+            {
+              tag : '.label ' + "Nouvelle page",
+            }
+          ],
+          style : {
+            position : "relative",
+          },
+          events: {
+            mousedown: function () {
+              console.log("bob")
+              this.query('dp').pages.insert({ src : "", index : this.resourcesDiv.childNodes.length - 1, state : "" });
+            }.bind(this)
+          }
+        });
+        
+        this.resourcesDiv.appendChild(this.addPage);
+
         this.query('dp').pages.on('insert', function(model) {
-          this.insertResource(this.query('dp').resources.where(function(e) { return e.id === model[0].resourceID}), model[0].id);
+          //this.insertResource(this.query('dp').resources.where(function(e) { return e.id === model[0].resourceID}), model[0].id);
+          this.insertResource(model);
         }.bind(this));
         this.query('dp').pages.on('delete', this.deleteResource.bind(this));
+
+        this.resourcesDiv.changePage = function (index) {
+          $(".moods")[0].changePage(index);
+        }.bind(this)
       }
 
       /*this.handle = r.handle(this.el);
@@ -104,27 +141,28 @@ var Bar = r.Seed.extend({
       this.scope.resources.insertBefore(el, this.scope.resources.childNodes[indexes.to]);
     },
 
-    insertResource : function (model, pageID) {
+    insertResource : function (model) {
       if (this.side === 'topbar') {
         this.scope.resources.appendChild(this.create(r.Resource,{ src: model[0].src,title : model[0].title, id: model[0].id},'lastResource').el);
       } else if (this.side === 'leftbar') {
-        var el = this.create(r.Resource,{ src: model[0].src,title : model[0].title, id: model[0].id},'lastResource').el;
-        var index = this.query('dp').pages.one(function(e) {return e.id === pageID}.bind(this)).index;
-        console.log(index, this.scope.resources.childNodes.length);
-        this.scope.resources.insertBefore(el, this.scope.resources.childNodes[index]);
+        var el = this.create(r.Resource,{ src: model[0].src,title : model[0].index},'lastResource').el;
+        console.log(model[0]);
+        this.scope.resources.insertBefore(el, this.addPage);
 
-        var tmp = this.lastResource;
+        /*var tmp = this.lastResource;
         tmp.el.addEventListener('mousedown', function(e) {
           this.fire('setPage', this.query('dp').pages.one(function(e) {
             return (e.resourceID === tmp.id) && (typeof pageID === 'undefined' ? 1 : e.id === pageID);
           }.bind(this)).index);
-        }.bind(this))
+        }.bind(this))*/
       }
     },
 
     deleteResource: function(model, options) {
       ;
-    }
+    },
+
+
 
   });
   return Bar;

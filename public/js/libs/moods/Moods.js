@@ -27,34 +27,21 @@ sand.define('Moods/Master', [
 
     tpl: function() {
       return {
-        tag: '.moods', children: [
+        tag: '.moods',
+        children: [
           this.create(r.Bar, {side : "topbar"}, 'topbar').el,
           this.create(r.Bar, {side : "leftbar"}, 'leftbar').el,
-          {tag: '.moods-container', as: 'container', children: [
-            {tag: '.moods-container-view', as: 'containerView', children: [
-              this.create(r.View, {type : "stories"}, 'view').el,
-              {tag: '.moods-previous.moods-arrow <<', events: {
-                click: function(e) {
-                  console.log('previous view')
-                  if (this.current !== 'cover' && this.current) {
-                    this.setView(this.current - 1);
-                  }
-                }.bind(this)
-              }},
-              {tag: '.moods-next.moods-arrow >>', events: {
-                click: function(e) {
-                  console.log('next view', this.current)
-                  if (this.current < this.pages.length - 1) {
-                    this.setView(this.current + 1);
-                  }
-                }.bind(this)
-              }}
-            ]},
-            {tag: '.moods-arrow-comment', as: 'arrowCom', events: {
-                click: this.showCom.bind(this)
-              }, children: ['.moods-arrow-comment-txt |']
+          {
+            tag: '.moods-container', as: 'container',
+            children: [
+            {
+              tag: '.moods-container-view', as: 'containerView',
+              children: [
+              this.create(r.View, null, 'view').el,
+              ]
             }
-          ]}
+            ]
+          }
         ]
       }
     },
@@ -64,24 +51,15 @@ sand.define('Moods/Master', [
 
       this.create(r.ComModule, {attachEl: this.containerView, dp: this.dp, id: 'cover'}, 'commentsbar');
 
-      this.dp.resources.insert({id: 'cover', src: '/img/tex_00.jpg', title: 'cover'});
+      //this.dp.resources.insert({id: 'cover', src: '/img/tex_00.jpg', title: 'cover'});
 
       this.topbar.el.insertBefore(this.create(r.Upload, {complete: function(file) {
         this.dp.resources.insert({src: file.content, title: file.name});
       }.bind(this)}, 'upload').el,this.topbar.scope["resources-wrap"]);
 
-      this.topbar.el.insertBefore(r.toDOM({
-        tag: 'i.switch-button.button <>',
-        events: {
-          click: function() {
-            this.view.setAlongType();
-            this.setView(this.current);
-          }.bind(this)
-        }
-      }),this.topbar.scope["resources-wrap"]);
 
       /*Listeners*/
-      this.leftbar.on('setPage', this.setView.bind(this));
+      /*this.leftbar.on('setPage', this.setView.bind(this));
       ['insert', 'edit', 'delete'].each(function(e) {
         this.dp.pages.on(e, function(model, options) {
           this[e + 'Page'](model, options);
@@ -111,13 +89,17 @@ sand.define('Moods/Master', [
         this.leftbar.swapResources(indexes);
         console.log(this.pages, this.dp.pages.all);
         this.setView(indexes.to);
-      }.bind(this));
+      }.bind(this));*/
+
+      this.el.changePage = function (index) {
+        this.view.changePage(this.dp.pages.where('index',parseInt(index))[0]);
+      }.bind(this);
 
       /*Insert cover*/
-      this.dp.pages.insert({resourceID: 'cover', index: 0});
+      //this.dp.pages.insert({resourceID: 'cover', index: 0});
 
-      this.setView(0);
-      this.showCom();
+      //this.setView(0);
+      //this.showCom();
     },
 
   insertPageDP: function(model) {
