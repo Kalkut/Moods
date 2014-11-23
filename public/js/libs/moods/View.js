@@ -32,12 +32,15 @@ sand.define('Moods/View',['Moods/Case','Moods/Cover','DOM/toDOM','Moods/BP','See
     },
 
     changePage : function (model) {
-    	this.index = model.index;
-    	this.src = model.src;
-    	if(model.index) {
+    	if(model) {
+    		this.index = model.index;
+    		this.src = model.src;
     		this.cover.el.style.display = "none";
     		this.pageCase.el.style.display = "block";
     		this.pageCase.setState(model.state);
+    	} else {
+    		this.cover.el.style.display = "block";
+    		this.pageCase.el.style.display = "none";
     	}
     }
 

@@ -58,7 +58,6 @@ sand.define('Moods/Resource', [
 			this.handle.drag({
 				start : function (e){
 					e.preventDefault();
-					if(this.static) this.el.parentNode.staticProcess(this);
 					
 					if(this.el.parentNode.getAttribute("side") === "leftbar") this.el.parentNode.changePage(this.title);
 
@@ -97,14 +96,13 @@ sand.define('Moods/Resource', [
 				}.wrap(this),
 				drag : function (e) {
 
-					if(this.static) return;
 
 					this.buffEl.style.left = e.xy[0] - this.oL /*+ $(document.body).scrollLeft()*/ - this.cOffsetX + "px";
 					this.buffEl.style.top = e.xy[1] - this.oT /*+	$(document.body).scrollTop()*/ - this.cOffsetY + "px";
 
 				}.wrap(this),
 				end: function (e) {
-					if(this.static) return;
+					
 					this.hint(e,this.hintDiv);
 					
 					if(e.target.className == 'case' && e.target.refresh) {

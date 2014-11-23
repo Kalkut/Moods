@@ -69,7 +69,7 @@ var Bar = r.Seed.extend({
         this.query('dp').resources.on('insert', this.insertResource.bind(this));
         this.query('dp').resources.on('delete', this.deleteResource.bind(this));
       } else if (this.side == "leftbar") {
-        this.resourcesDiv.appendChild(this.create(r.Resource,{ title : "Cover", src : "", static : true },"cover").el);
+        //this.resourcesDiv.appendChild(this.create(r.Resource,{ title : "Cover", src : "", static : true },"cover").el);
         
         /*this.resourcesDiv.staticProcess = function () {
           if(resource == this.addPage) this.query('dp').pages.insert({ src : "", index : this.resourcesDiv.childNodes.length - 1});
@@ -98,7 +98,32 @@ var Bar = r.Seed.extend({
             }.bind(this)
           }
         });
+
+        this.cover = r.toDOM({
+          tag : '.resource',
+          children : [
+            {
+              tag : '.picto',
+              style : {
+                backgroundImage : 'url(' + "" + ')',
+              }
+            },
+            {
+              tag : '.label ' + "Couverture",
+            }
+          ],
+          style : {
+            position : "relative",
+          },
+          events: {
+            mousedown: function () {
+              console.log("bob")
+              $(".moods")[0].changePage(0);
+            }.bind(this)
+          }
+        });
         
+        this.resourcesDiv.appendChild(this.cover);
         this.resourcesDiv.appendChild(this.addPage);
 
         this.query('dp').pages.on('insert', function(model) {
