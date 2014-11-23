@@ -359,8 +359,8 @@ sand.define('Moods/Case', [
 		setState : function (state) {
 				if(state) {
 					this.changeImage(state.src);
-					this.imgRect = jQuery.extend({},state.imgRect);
-					this.divRect = jQuery.extend({},state.divRect);
+					this.imgRect = new r.Geo.Rect({  segX : new r.Geo.Seg(state.imgRect.segX.c1,state.imgRect.segX.c2), segY : new r.Geo.Seg(state.imgRect.segY.c1,state.imgRect.segY.c2), value : state.imgRect.value } );
+					this.divRect = new r.Geo.Rect({ segX : new r.Geo.Seg(state.divRect.segX.c1,state.divRect.segX.c2), segY : new r.Geo.Seg(state.divRect.segY.c1,state.divRect.segY.c2), value : state.divRect.value } );
 					this.img.style.left = state.left;
 					this.img.style.top = state.top;
 					this.img.style.width = state.width;
@@ -372,8 +372,8 @@ sand.define('Moods/Case', [
 
 		saveState : function () {
 				var state = {};
-				state.divRect = jQuery.extend({},this.divRect);
-				state.imgRect = jQuery.extend({},this.imgRect);
+				state.divRect = this.divRect;
+				state.imgRect = this.imgRect;
 				state.left = this.img.style.left; 
 				state.top = this.img.style.top;
 				state.width = this.img.style.width;
