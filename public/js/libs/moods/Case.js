@@ -236,12 +236,12 @@ sand.define('Moods/Case', [
             	if(e.shiftKey || (e.scale && e.scale != 1)) {
             		this.zoomEvent(e);
             	}
-            	 this.drag(e);
-            	}.bind(this),
-            	end : function(e) {
-            		this.states[this.states.length - 1].eState = {rect : jQuery.extend({},this.imgRect), left : this.img.style.left, top : this.img.style.top, width : this.img.style.width, height : this.img.style.height}
-            		this.fire('caseAction',this.states.last());
-            	}.bind(this)
+            	this.drag(e);
+            }.bind(this),
+          	end : function(e) {
+          		this.states[this.states.length - 1].eState = {rect : jQuery.extend({},this.imgRect), left : this.img.style.left, top : this.img.style.top, width : this.img.style.width, height : this.img.style.height}
+          		this.fire('caseAction',this.states.last());
+          	}.bind(this)
           });
 
 			if(this.factor && this.factor != 1) this.zoom(this.factor); // WARNING : If you set a stupid factor as an input, then you'll get stupid zoom as an output
