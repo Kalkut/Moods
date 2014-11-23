@@ -21,6 +21,10 @@ sand.define('Moods/View',['Moods/Case','Moods/Cover','DOM/toDOM','Moods/BP','See
 			this.pageCase.on('case:imageMovedPx', function () {
 				this.query('dp').pages.all[this.index-1].edit({state : this.pageCase.saveState() });
 			}.bind(this))
+
+			this.pageCase.on('droppedOn', function (src) {
+				this.fire('updatePreview',src,this.index)
+			}.bind(this))
 		},
 
     setCurrent: function(model) {
@@ -29,6 +33,7 @@ sand.define('Moods/View',['Moods/Case','Moods/Cover','DOM/toDOM','Moods/BP','See
 
     changePage : function (model) {
     	this.index = model.index;
+    	this.src = model.src;
     	if(model.index) {
     		this.cover.el.style.display = "none";
     		this.pageCase.el.style.display = "block";

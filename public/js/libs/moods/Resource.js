@@ -110,10 +110,12 @@ sand.define('Moods/Resource', [
 					if(e.target.className == 'case' && e.target.refresh) {
 						e.target.refresh(this.src);
 						this.query('dp').pages.all[parseInt($(".moods")[0].getAttribute("page"))-1].edit({state : e.target.saveState() })
+						e.target.fire("droppedOn",this.src);
 					}
 					else if (e.target.parentNode.className == 'case' && e.target.parentNode.refresh) {
 						e.target.parentNode.refresh(this.src);
 						this.query('dp').pages.all[parseInt($(".moods")[0].getAttribute("page"))-1].edit({state : e.target.parentNode.saveState() })
+						e.target.parentNode.fire("droppedOn",this.src);
 					}
 
 					if(this.hintDiv.parentNode) this.hintDiv.parentNode.removeChild(this.hintDiv);

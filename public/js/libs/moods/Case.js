@@ -74,6 +74,10 @@ sand.define('Moods/Case', [
 				this.changeImage(src);
 			}.bind(this)
 
+			this.el.fire = function(event,value) {
+				this.fire(event,value)
+			}.bind(this)
+
 			this.el.saveState = this.saveState.bind(this)
 			this.el.setState = this.setState.bind(this)
 

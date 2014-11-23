@@ -96,6 +96,10 @@ sand.define('Moods/Master', [
         this.el.setAttribute("page",index)
       }.bind(this);
 
+      this.view.on("updatePreview", function (src,index) {
+        $(".moods-leftbar .picto")[index].style.backgroundImage = 'url(' + src + ')'
+      }.bind(this))
+
       /*Insert cover*/
       //this.dp.pages.insert({resourceID: 'cover', index: 0});
 
