@@ -30,15 +30,20 @@ footer {
     -moz-filter: invert(100%);
     display: inline;
     float: left;
-    width: 36px;
-    height: 36px;
-    position: relative;
-    margin-left: 6px; }
+    width: 6.7%;
+    height: 75px;
+    border-right: 1px solid #2B2B2B;
+    background-color: #000000;
+    background-image: url("/img/upload.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative; }
     .moods .upload-wrapper .upload-file {
-      position: relative;
+      position: absolute;
       overflow: hidden;
       text-align: right;
       width: 100%;
+      height: 100%;
       -moz-opacity: 0;
       opacity: 0;
       z-index: 2; }
@@ -56,10 +61,6 @@ footer {
     .moods .upload-wrapper .upload-wrapper:hover {
       color: #cccccc;
       border-bottom: 5px solid; }
-  .moods .upload-wrapper {
-    position: relative;
-    top: 0px;
-    left: 0px; }
   .moods .hovered {
     width: 72px;
     height: 72px;
@@ -88,18 +89,19 @@ footer {
       margin-top: 5.5px;
       border-radius: 5px; }
     .moods .resource .label {
-      color: #FFFFFF;
+      color: #2B2B2B;
       text-align: center;
       font-family: futurastd;
       font-size: 10px;
       height: 12px;
       width: 72px; }
   .moods .moods-topbar {
-    background-color: #1B1B1B;
+    background-color: #FFFFFF;
     width: 99%;
     height: 75px;
     float: left;
-    margin: 6px 3px 20px 3px; }
+    margin: 0px 3px 1px 3px;
+    position: relative; }
     .moods .moods-topbar .switch-button {
       float: left;
       width: 36px;
@@ -107,67 +109,54 @@ footer {
       color: #fff;
       font-size: 24px;
       cursor: pointer; }
+    .moods .moods-topbar .shuffle {
+      position: relative;
+      background-image: url('/img/shuffle.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-color: #FFFFFF;
+      width: 6.7%;
+      height: 100%;
+      float: left;
+      border-right: 1px solid #2B2B2B;
+      border-bottom: 1px solid #2B2B2B; }
     .moods .moods-topbar .previous {
-      position: absolute;
-      background-color: #2B2B2B;
-      width: 35.7px;
-      height: 27px;
-      left: 1075px;
-      top: 30px;
-      font-family: futurastd;
-      font-size: 23px;
-      color: #FFFFFF;
-      text-align: center; }
+      position: relative;
+      background-color: #FFFFFF;
+      width: 6.7%;
+      height: 100%;
+      background-image: url('/img/prev.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      float: left;
+      border-right: 1px solid #2B2B2B; }
     .moods .moods-topbar .next {
-      position: absolute;
-      background-color: #2B2B2B;
-      width: 35.7px;
-      height: 27px;
-      left: 1120px;
-      top: 30px;
-      font-family: futurastd;
-      font-size: 23px;
-      color: #FFFFFF;
-      text-align: center; }
+      position: relative;
+      background-color: #FFFFFF;
+      background-image: url('/img/next.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 6.7%;
+      height: 100%;
+      float: left;
+      border-right: 1px solid #2B2B2B; }
     .moods .moods-topbar .resources-wrap {
       overflow: hidden;
-      min-width: 1000px;
-      min-height: 72px;
-      left: 50px;
-      position: absolute; }
+      min-width: 53.7%;
+      min-height: 100%;
+      position: relative;
+      float: left; }
     .moods .moods-topbar .resources {
-      max-height: 72px;
+      max-height: 100%;
       position: absolute; }
   .moods .moods-leftbar {
-    background-color: #1B1B1B;
-    width: 72px;
+    background-color: #FFFFFF;
+    width: 6.7%;
     height: 550px;
     float: left;
     margin-left: 3px;
     margin-right: 20px;
     position: relative; }
-    .moods .moods-leftbar .previous {
-      position: absolute;
-      background-color: #2B2B2B;
-      width: 35.7px;
-      height: 27px;
-      left: 15px;
-      top: 0px;
-      font-family: futurastd;
-      font-size: 23px;
-      color: #FFFFFF;
-      text-align: center; }
-    .moods .moods-leftbar .next {
-      position: absolute;
-      background-color: #2B2B2B;
-      width: 35.7px;
-      height: 27px;
-      left: 15px;
-      bottom: 0px;
-      font-family: futurastd;
-      font-size: 23px;
-      color: #FFFFFF;
-      text-align: center; }
     .moods .moods-leftbar .resources-wrap {
       overflow: hidden;
       top: 30px;
@@ -298,7 +287,8 @@ footer {
       height: 545px;
       width: 70%;
       z-index: 0;
-      transition: width 0.3s; }
+      transition: width 0.3s;
+      padding-top: 1%; }
       .moods .moods-container .moods-container-view canvas {
         position: absolute;
         top: 0px;
@@ -312,8 +302,8 @@ footer {
           border: 1px dotted #D5D5D5; }
       .moods .moods-container .moods-container-view .view {
         width: 80%;
-        left: 83px;
-        position: absolute;
+        float: left;
+        position: relative;
         height: 100%;
         background-color: #FFFFFF; }
         .moods .moods-container .moods-container-view .view .case {

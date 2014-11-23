@@ -24,7 +24,15 @@ var Bar = r.Seed.extend({
         tag : ".moods"+(opt.side ? "-"+opt.side : ""),
         children : [
           {
-            tag : ".previous <<",
+            tag : ".resources-wrap",
+            children : [
+            {
+              tag : '.resources'+(opt.type || "")
+            }
+            ]
+          },
+          {
+            tag : ".previous",
             events : {
               mouseup : function (e) {
                 this.resourcesDiv.style.left = this.resourcesDiv.style.left || "0px"
@@ -34,15 +42,7 @@ var Bar = r.Seed.extend({
             }
           },
           {
-            tag : ".resources-wrap",
-            children : [
-            {
-              tag : '.resources'+(opt.type || "")
-            }
-            ]
-          },
-          {
-            tag : ".next >>",
+            tag : ".next",
             events : {
               mouseup : function (e) {
                 this.resourcesDiv.style.left = this.resourcesDiv.style.left || "0px";

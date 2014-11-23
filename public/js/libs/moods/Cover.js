@@ -10,15 +10,44 @@ sand.define('Moods/Cover', [
 
     '+init' : function (opt) {
       
-      this.layout = opt.layout || [[50,100,200,200],[350,100,200,200],[50,325,200,200],[350,325,200,200]];
+      this.collection = [[[75,50,200,200],[375,50,200,200],[75,300,500,200]],[[75,50,200,450],[375,50,200,200],[375,300,200,200]],[[75,50,200,200],[375,50,200,200],[75,300,200,200],[375,300,200,200]]]
+      this.cIndex = 0
+      this.layout = opt.layout || this.collection[this.cIndex] //[[75,50,200,450],[375,50,200,200],[375,300,200,200]]// [[75,50,200,200],[375,50,200,200],[75,300,200,200],[375,300,200,200]];
+      
       this.el = r.toDOM('.cover');
+      this.images = [];
+      
+      this.setCover();
+      
 
+      
+    },
+
+    shuffle : function () {
+      this.el.innerHTML ="";
+      if(this.collection[this.cIndex + 1]) {
+        this.cIndex++;
+        this.layout = this.collection[this.cIndex];
+      } else {
+        this.cIndex = 0;
+        this.layout = this.collection[this.cIndex];
+      }
+      this.setCover();
+    },
+
+    setCover : function () {
       for (var i = 0, n = this.layout.length; i < n; i++) {
-        var tCase = this.create(r.Case,{ width : this.layout[i][2], height : this.layout[i][3]});
+        var tCase = this.create(r.Case,{ width : this.layout[i][2], height : this.layout[i][3], imgSrc : this.images && this.images[i] ? this.images[i] : "" });
         tCase.el.style.left = this.layout[i][0] +'px'
         tCase.el.style.top = this.layout[i][1] + 'px'
         this.el.appendChild(tCase.el);
         tCase.el.setAttribute("cover",true);
+        tCase.el.setAttribute("index",i);
+
+        tCase.on('droppedOn',function (i,src){
+          this.images[i] = src
+        }.bind(this).curry(i))
+
         tCase.el.addEventListener("mousedown", function (tCase,e) {
           if(e.shiftKey) {
             tCase.freeze();
@@ -33,23 +62,25 @@ sand.define('Moods/Cover', [
             
             $(".moods")[0].appendChild(clone);
             
-            
-            
             var move = function (e) {
               clone.style.left = e.clientX - sOl  + "px";
               clone.style.top = e.clientY - sOt + "px";
             }.bind(this)
             
             var up = function (e) {
-              if(e.target.className == 'case' && e.target.refresh) {
+              if(e.target != tCase.el && e.target.className == 'case' && e.target.refresh) {
                 e.target.refresh(tCase.img.src);
                 console.log(["boule",tCase.img.src])
-                tCase.changeImage("")
+                this.images[tCase.el.getAttribute("index")] = "";
+                this.images[e.target.getAttribute("index")] = tCase.img.src ;
+                tCase.changeImage("");
               }
-              else if (e.target.parentNode.className == 'case' && e.target.parentNode.refresh) {
+              else if (e.target.parentNode != tCase.el && e.target.parentNode.className == 'case' && e.target.parentNode.refresh) {
                 e.target.parentNode.refresh(tCase.img.src);
                 console.log(["bill",tCase.img.src])
-                tCase.changeImage("")
+                this.images[tCase.el.getAttribute("index")] = ""; 
+                this.images[e.target.parentNode.getAttribute("index")] = tCase.img.src; 
+                tCase.changeImage("");
               }
             clone.parentNode.removeChild(clone);
             document.body.removeEventListener('mousemove', move)

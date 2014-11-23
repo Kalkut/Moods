@@ -42,6 +42,10 @@ sand.define('Moods/View',['Moods/Case','Moods/Cover','DOM/toDOM','Moods/BP','See
     		this.cover.el.style.display = "block";
     		this.pageCase.el.style.display = "none";
     	}
+    },
+
+    shuffle : function () {
+    	this.cover.shuffle();
     }
 
   })

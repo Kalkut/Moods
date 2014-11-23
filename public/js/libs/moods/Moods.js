@@ -53,6 +53,16 @@ sand.define('Moods/Master', [
 
       //this.dp.resources.insert({id: 'cover', src: '/img/tex_00.jpg', title: 'cover'});
 
+      this.shuffleButton =  r.toDOM({
+        tag : ".shuffle",
+        events : {
+          mouseup : function () {
+            this.shuffle();
+          }.bind(this)
+        }
+      });
+
+      this.topbar.el.insertBefore(this.shuffleButton,this.topbar.scope["resources-wrap"]);
       this.topbar.el.insertBefore(this.create(r.Upload, {complete: function(file) {
         this.dp.resources.insert({src: file.content, title: file.name});
       }.bind(this)}, 'upload').el,this.topbar.scope["resources-wrap"]);
@@ -204,6 +214,10 @@ sand.define('Moods/Master', [
     resourceToView : function (ressource) {
       //this.create(r.View,{ src : resources.src})
     },
+
+    shuffle : function () {
+      this.view.shuffle();
+    }
 
   });
   return Moods;
