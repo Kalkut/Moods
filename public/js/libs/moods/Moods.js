@@ -93,6 +93,7 @@ sand.define('Moods/Master', [
 
       this.el.changePage = function (index) {
         this.view.changePage(this.dp.pages.where('index',parseInt(index))[0]);
+        this.el.setAttribute("page",index)
       }.bind(this);
 
       /*Insert cover*/

@@ -74,6 +74,9 @@ sand.define('Moods/Case', [
 				this.changeImage(src);
 			}.bind(this)
 
+			this.el.saveState = this.saveState.bind(this)
+			this.el.setState = this.setState.bind(this)
+
 			//this.div.appendChild(this.debugScope);
 
 			if(this.type === 'txt') {
@@ -355,18 +358,20 @@ sand.define('Moods/Case', [
 
 		setState : function (state) {
 				if(state) {
-					this.changeImage(src);
+					this.changeImage(state.src);
 					this.imgRect = jQuery.extend({},state.imgRect);
 					this.divRect = jQuery.extend({},state.divRect);
 					this.img.style.left = state.left;
 					this.img.style.top = state.top;
 					this.img.style.width = state.width;
 					this.img.style.height = state.height;
+				} else{
+					this.changeImage("");
 				}
 		},
 
 		saveState : function () {
-				var state;
+				var state = {};
 				state.divRect = jQuery.extend({},this.divRect);
 				state.imgRect = jQuery.extend({},this.imgRect);
 				state.left = this.img.style.left; 

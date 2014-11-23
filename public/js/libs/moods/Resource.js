@@ -107,8 +107,14 @@ sand.define('Moods/Resource', [
 					if(this.static) return;
 					this.hint(e,this.hintDiv);
 					
-					if(e.target.className == 'case' && e.target.refresh) e.target.refresh(this.src);
-					else if (e.target.parentNode.className == 'case' && e.target.parentNode.refresh) e.target.parentNode.refresh(this.src);
+					if(e.target.className == 'case' && e.target.refresh) {
+						e.target.refresh(this.src);
+						this.query('dp').pages.all[parseInt($(".moods")[0].getAttribute("page"))-1].edit({state : e.target.saveState() })
+					}
+					else if (e.target.parentNode.className == 'case' && e.target.parentNode.refresh) {
+						e.target.parentNode.refresh(this.src);
+						this.query('dp').pages.all[parseInt($(".moods")[0].getAttribute("page"))-1].edit({state : e.target.parentNode.saveState() })
+					}
 
 					if(this.hintDiv.parentNode) this.hintDiv.parentNode.removeChild(this.hintDiv);
 					if(this.buffEl && this.buffEl.parentNode) this.buffEl.parentNode.removeChild(this.buffEl);
