@@ -36,8 +36,23 @@ var Bar = r.Seed.extend({
             events : {
               mouseup : function (e) {
                 this.resourcesDiv.style.left = this.resourcesDiv.style.left || "0px"
-                this.resourcesDiv.style.top = this.resourcesDiv.style.top || "0px"
-                if( (opt.side === "topbar" && $(this.resourcesDiv).width() > $(this.scope["resources-wrap"]).width() && $(this.resourcesDiv).width() > - parseInt(this.resourcesDiv.style.left)) ||  ( opt.side === "leftbar" && $(this.resourcesDiv).height() > $(this.scope["resources-wrap"]).height() && $(this.resourcesDiv).height() > - parseInt(this.resourcesDiv.style.top))) opt.side === "topbar" ? this.resourcesDiv.style.left = parseInt(this.resourcesDiv.style.left) + 72 + "px" : this.resourcesDiv.style.top = parseInt(this.resourcesDiv.style.top) + 72 + "px"
+                this.resourcesDiv.style.top = this.resourcesDiv.style.top || "0px";
+                console.log($(this.resourcesDiv).width()+parseInt(this.resourcesDiv.style.left),$(this.scope["resources-wrap"]).width())
+                if( (opt.side === "topbar" && $(this.resourcesDiv).width() -72 > $(this.scope["resources-wrap"]).width() && $(this.resourcesDiv).width() > - parseInt(this.resourcesDiv.style.left)) ||  ( opt.side === "leftbar" && $(this.resourcesDiv).height() > $(this.scope["resources-wrap"]).height() && $(this.resourcesDiv).height() > - parseInt(this.resourcesDiv.style.top))) opt.side === "topbar" ? this.resourcesDiv.style.left = parseInt(this.resourcesDiv.style.left) + 72 + "px" : this.resourcesDiv.style.top = parseInt(this.resourcesDiv.style.top) + 72 + "px"
+                /*var k = 0;
+                var inLoop = false;
+                var temp = this.resourcesDiv.childNodes ? this.resourcesDiv.childNodes[k] : null
+                console.log(temp && k != this.resourcesDiv.childNodes.length - 2 && temp.style.display == "none")
+                while(temp && k != this.resourcesDiv.childNodes.length - 2 && temp.style.display == "none") {
+                  k++;
+                  temp = this.resourcesDiv.childNodes[k];
+                  inLoop = true;
+                }
+                console.log(this.resourcesDiv.childNodes[k],  this.resourcesDiv.childNodes[k].style.display != "none")
+                if(this.resourcesDiv.childNodes[k] && this.resourcesDiv.childNodes[k].style.display != "none") {
+                  this.resourcesDiv.childNodes[k].style.display = "none";
+                  console.log(this.resourcesDiv.childNodes[k]);
+                }*/
               }.bind(this)
             }
           },
@@ -47,7 +62,22 @@ var Bar = r.Seed.extend({
               mouseup : function (e) {
                 this.resourcesDiv.style.left = this.resourcesDiv.style.left || "0px";
                 this.resourcesDiv.style.top = this.resourcesDiv.style.top || "0px";
-                if( $(this.resourcesDiv).width() >= $(this.scope["resources-wrap"]).width() ) opt.side === "topbar" ? this.resourcesDiv.style.left = parseInt(this.resourcesDiv.style.left) - 72 + "px" : this.resourcesDiv.style.top = parseInt(this.resourcesDiv.style.top) - 72 + "px"
+                if( $(this.resourcesDiv).width() > $(this.scope["resources-wrap"]).width() && $(this.resourcesDiv).width()+parseInt(this.resourcesDiv.style.left) > 72) opt.side === "topbar"  ? this.resourcesDiv.style.left = parseInt(this.resourcesDiv.style.left) - 72 + "px" : this.resourcesDiv.style.top = parseInt(this.resourcesDiv.style.top) - 72 + "px"
+                /*var k = 0;
+                var j = this.resourcesDiv.childNodes -1;
+                var temp = this.resourcesDiv.childNodes ? this.resourcesDiv.childNodes[k] : null
+                var temp2 = this.resourcesDiv.childNodes ? this.resourcesDiv.childNodes[j] : null
+                console.log("ok",temp,k != this.resourcesDiv.childNodes.length - 1,temp.style.display == "none")
+                while(temp && k != this.resourcesDiv.childNodes.length - 2 && temp.style.display == "none") {
+                  k++;
+                  temp = this.resourcesDiv.childNodes[k];
+                }
+                while(temp && k != 1 && temp.style.display == "none"){
+                  j--;
+                  temp2 = this.resourcesDiv.childNodes[j];
+                }
+                if(!temp.style.display || temp.style.display !== "none") temp.style.display = "none";
+                //if(this.resourcesDiv.childNodes[j] && this.resourcesDiv.childNodes[j].style.display == "none") this.resourcesDiv.childNodes[k-1].style.display = "block";*/
               }.bind(this)
             }
           }
