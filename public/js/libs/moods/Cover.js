@@ -17,6 +17,7 @@ sand.define('Moods/Cover', [
         tCase.el.style.left = this.layout[i][0] +'px'
         tCase.el.style.top = this.layout[i][1] + 'px'
         this.el.appendChild(tCase.el);
+        tCase.el.setAttribute("cover",true)
      }
     }
 

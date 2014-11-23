@@ -102,17 +102,17 @@ sand.define('Moods/Resource', [
 
 				}.wrap(this),
 				end: function (e) {
-					
+
 					this.hint(e,this.hintDiv);
 					
 					if(e.target.className == 'case' && e.target.refresh) {
 						e.target.refresh(this.src);
-						this.query('dp').pages.all[parseInt($(".moods")[0].getAttribute("page"))-1].edit({state : e.target.saveState() })
+						if(!e.target.getAttribute("cover")) this.query('dp').pages.all[parseInt($(".moods")[0].getAttribute("page"))-1].edit({state : e.target.saveState() })
 						e.target.fire("droppedOn",this.src);
 					}
 					else if (e.target.parentNode.className == 'case' && e.target.parentNode.refresh) {
 						e.target.parentNode.refresh(this.src);
-						this.query('dp').pages.all[parseInt($(".moods")[0].getAttribute("page"))-1].edit({state : e.target.parentNode.saveState() })
+						if(!e.target.parentNode.getAttribute("cover")) this.query('dp').pages.all[parseInt($(".moods")[0].getAttribute("page"))-1].edit({state : e.target.parentNode.saveState() })
 						e.target.parentNode.fire("droppedOn",this.src);
 					}
 
