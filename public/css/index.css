@@ -174,7 +174,8 @@ footer {
       height: 45px;
       width: 45px;
       margin-left: 13px;
-      margin-top: 5.5px; }
+      margin-top: 5.5px;
+      border: 1px dotted #A7A7A7; }
     .moods .resource .label {
       color: rgba(43, 43, 43, 0.57);
       text-align: center;
