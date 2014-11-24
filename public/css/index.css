@@ -259,6 +259,8 @@ footer {
     .moods .moods-topbar .resources {
       max-height: 100%;
       position: absolute; }
+    .moods .moods-topbar .resource {
+      margin-bottom: 5px; }
   .moods .moods-leftbar {
     background-color: #FFFFFF;
     width: 6.75%;
