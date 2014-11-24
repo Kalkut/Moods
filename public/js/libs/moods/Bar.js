@@ -100,7 +100,7 @@ var Bar = r.Seed.extend({
           this.resourcesDiv.removeChild(el);
           if(this.side == "leftbar"){
             for(var i = parseInt(el.scopeMe('label').innerHTML), n = this.resourcesDiv.childNodes.length; i < n; i++) {
-            this.resourcesDiv.childNodes[i].scopeMe("label").innerHTML = i;
+              this.resourcesDiv.childNodes[i].scopeMe("label").innerHTML = i;
             }
           }
       }.bind(this);
@@ -186,8 +186,20 @@ var Bar = r.Seed.extend({
         }.bind(this));
         this.query('dp').pages.on('delete', this.deleteResource.bind(this));
 
-        this.resourcesDiv.putAt = function (index,el) {
-          if(index > 0) this.resourcesDiv.insertBefore(el,this.resourcesDiv.childNodes[i]);
+        this.resourcesDiv.putAt = function (index,el,sIndex) {
+          if(index < 1) return;
+          if(this.resourcesDiv.childNodes[index]) $(el).insertAfter(this.resourcesDiv.childNodes[index])
+          
+          this.query('dp').pages.all.splice(index-1,0,this.query('dp').pages.all.splice(parseInt(this.resourcesDiv.childNodes[index-1].scopeMe("label").innerHTML)-1,1)[0]);
+          var buff = this.query('dp').pages.all[sIndex-1].src;
+          
+          //this.query('dp').pages.all[sIndex-1].edit({ src : this.query('dp').pages.all[index-1].src});
+          //this.query('dp').pages.all[index-1].edit({ src : buff});
+          
+          for(var i = 0 , n = this.query('dp').pages.all.length; i < n; i++ ){
+            this.query('dp').pages.all[i].edit({ index : i+1 });
+            this.resourcesDiv.childNodes[i+1].scopeMe("label").innerHTML = i+1;
+          }
         }.bind(this)
         
         this.resourcesDiv.changePage = function (index) {

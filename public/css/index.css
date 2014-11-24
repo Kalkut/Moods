@@ -207,6 +207,8 @@ footer {
       float: left;
       border-right: 1px solid #D4D4D4;
       border-bottom: 1px solid #D4D4D4; }
+    .moods .moods-topbar .shuffle:hover {
+      background-color: "rgba(255, 235, 0, 0.22)"; }
     .moods .moods-topbar .previous {
       position: relative;
       background-color: #FFFFFF;
@@ -218,6 +220,8 @@ footer {
       float: left;
       border-right: 1px solid #D4D4D4;
       border-left: 1px solid #D4D4D4; }
+      .moods .moods-topbar .previous:hover {
+        background-color: "rgba(255, 235, 0, 0.22)"; }
     .moods .moods-topbar .next {
       position: relative;
       background-color: #FFFFFF;
@@ -228,6 +232,8 @@ footer {
       height: 100%;
       float: left;
       border-right: 1px solid #D4D4D4; }
+    .moods .moods-topbar .next:hover {
+      background-color: "rgba(255, 235, 0, 0.22)"; }
     .moods .moods-topbar .closeApp {
       position: relative;
       background-color: #FFFFFF;
@@ -238,6 +244,8 @@ footer {
       background-repeat: no-repeat;
       float: left;
       border-right: 1px solid #D4D4D4; }
+    .moods .moods-topbar .closeApp:hover {
+      background-color: "rgba(255, 235, 0, 0.22)"; }
     .moods .moods-topbar .download {
       position: relative;
       background-color: #FFFFFF;
@@ -248,6 +256,8 @@ footer {
       background-repeat: no-repeat;
       float: left;
       border-right: 1px solid #D4D4D4; }
+    .moods .moods-topbar .download:hover {
+      background-color: "rgba(255, 235, 0, 0.22)"; }
     .moods .moods-topbar .resources-wrap {
       overflow: hidden;
       min-width: 650px;

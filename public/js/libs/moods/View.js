@@ -24,6 +24,7 @@ sand.define('Moods/View',['Moods/Case','Moods/Cover','DOM/toDOM','Moods/BP','See
 
 			this.pageCase.on('droppedOn', function (src) {
 				this.fire('updatePreview',src,this.index)
+				this.query('dp').pages.all[this.index-1].edit({src : src});
 			}.bind(this))
 
 			/*document.body.addEventListener("keyup", function (e) {
@@ -46,6 +47,7 @@ sand.define('Moods/View',['Moods/Case','Moods/Cover','DOM/toDOM','Moods/BP','See
     },
 
     changePage : function (model) {
+    	$('.moods-leftbar .resource')[this.index].style.backgroundColor = ""
     	if(model) {
     		this.index = model.index;
     		this.src = model.src;
@@ -58,6 +60,7 @@ sand.define('Moods/View',['Moods/Case','Moods/Cover','DOM/toDOM','Moods/BP','See
     		this.cover.el.style.display = "block";
     		this.pageCase.el.style.display = "none";
     	}
+    	$('.moods-leftbar .resource')[this.index].style.backgroundColor = "rgba(255, 235, 0, 0.22)"
     },
 
     shuffle : function () {
