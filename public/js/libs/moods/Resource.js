@@ -85,7 +85,7 @@ sand.define('Moods/Resource', [
 							tag : ".popup-content#reset-token-expired-landing-conten",
 							children : [
 								{
-									tag : "picto warning-picto"
+									tag : ".picto.warning-picto"
 								},
 								{
 									tag : ".title ÊTES VOUS SUR?",
