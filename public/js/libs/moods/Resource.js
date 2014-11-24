@@ -118,6 +118,7 @@ sand.define('Moods/Resource', [
 						$(".moods")[0].appendChild(this.popUp);
 						
 						$(".continue")[0].onclick = function () {
+							this.el.parentNode.changePage(parseInt(this.scope.label.innerHTML)-1);
 							this.query('dp').pages.all[parseInt(this.scope.label.innerHTML)-1].remove();
 							this.el.parentNode.deleteMe(this.el);
 							this.deleted = true;

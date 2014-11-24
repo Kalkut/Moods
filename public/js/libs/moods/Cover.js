@@ -45,7 +45,8 @@ sand.define('Moods/Cover', [
         tCase.el.setAttribute("index",i);
 
         tCase.on('droppedOn',function (i,src){
-          this.images[i] = src
+          this.images[i] = src;
+          this.query('dp').pages.insert({ src : src, index : $('.moods-leftbar .resources')[0].childNodes.length, state : "" });
         }.bind(this).curry(i))
 
         tCase.el.addEventListener("mousedown", function (tCase,e) {

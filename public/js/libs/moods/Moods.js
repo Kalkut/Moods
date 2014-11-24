@@ -62,10 +62,21 @@ sand.define('Moods/Master', [
         }
       });
 
+      this.download = r.toDOM({
+        tag : ".download"
+      })
+
+      this.close = r.toDOM({
+        tag: ".closeApp"
+      })
+
       this.topbar.el.insertBefore(this.shuffleButton,this.topbar.scope["resources-wrap"]);
       this.topbar.el.insertBefore(this.create(r.Upload, {complete: function(file) {
         this.dp.resources.insert({src: file.content, title: file.name});
       }.bind(this)}, 'upload').el,this.topbar.scope["resources-wrap"]);
+      
+      this.topbar.el.appendChild(this.download);
+      this.topbar.el.appendChild(this.close);
 
 
       /*Listeners*/

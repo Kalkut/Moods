@@ -88,7 +88,7 @@ footer {
   .moods .upload-wrapper {
     display: inline;
     float: left;
-    width: 6.7%;
+    width: 85px;
     height: 75px;
     border-right: 1px solid #D4D4D4;
     background-color: #FFFFFF;
@@ -164,7 +164,7 @@ footer {
       height: 12px;
       width: 72px; }
   .moods .moods-topbar {
-    background-color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0);
     width: 99%;
     height: 75px;
     float: left;
@@ -191,7 +191,7 @@ footer {
     .moods .moods-topbar .previous {
       position: relative;
       background-color: #FFFFFF;
-      width: 6.7%;
+      width: 85px;
       height: 100%;
       background-image: url('/img/prev.png');
       background-size: contain;
@@ -205,16 +205,37 @@ footer {
       background-image: url('/img/next.png');
       background-size: contain;
       background-repeat: no-repeat;
-      width: 6.7%;
+      width: 85px;
       height: 100%;
+      float: left;
+      border-right: 1px solid #D4D4D4; }
+    .moods .moods-topbar .closeApp {
+      position: relative;
+      background-color: #FFFFFF;
+      width: 85px;
+      height: 100%;
+      background-image: url('/img/close.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      float: left;
+      border-right: 1px solid #D4D4D4; }
+    .moods .moods-topbar .download {
+      position: relative;
+      background-color: #FFFFFF;
+      width: 85px;
+      height: 100%;
+      background-image: url('/img/dl.png');
+      background-size: contain;
+      background-repeat: no-repeat;
       float: left;
       border-right: 1px solid #D4D4D4; }
     .moods .moods-topbar .resources-wrap {
       overflow: hidden;
-      min-width: 53.7%;
+      min-width: 659px;
       min-height: 100%;
       position: relative;
-      float: left; }
+      float: left;
+      background-color: #FFFFFF; }
     .moods .moods-topbar .resources {
       max-height: 100%;
       position: absolute; }
@@ -393,7 +414,7 @@ footer {
           border: 1px dotted #D5D5D5; }
       .moods .moods-container .moods-container-view .view {
         width: 80%;
-        float: left;
+        left: 70px;
         position: relative;
         height: 99%;
         background-color: #FFFFFF; }
