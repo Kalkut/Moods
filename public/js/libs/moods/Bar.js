@@ -148,6 +148,8 @@ var Bar = r.Seed.extend({
           }
         });
 
+        $(this.cover).hover(function () { this.cover.className = "resource hovered";}.bind(this),function () { this.cover.className = "resource";}.bind(this))
+
         this.slideBar = r.toDOM({
           tag : '.slideBar',
           children : [

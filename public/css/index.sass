@@ -100,7 +100,7 @@ footer
     display: inline
     float: left
     width: 85px
-    height: 75px
+    height: 100%
     border-right: 1px solid #D4D4D4
     background-color : #FFFFFF
     background-image : url("/img/upload.png")
@@ -132,26 +132,36 @@ footer
       color: #cccccc
       border-bottom: 5px solid
 
-  .hovered
+  .moods-topbar
+    .hovered
       width : 72px
       height : 72px
       float : left
       overflow: hidden
-      background-color : rgba(87, 87, 87, 0.65)
+      background-color : rgba(87, 87, 87, 0.3)
       opacity : 0.9
-      border: 1px solid rgba(87, 87, 87, 0.65)
-      margin : -1px
-      border-radius: 7px
+      border: 1px solid rgba(87, 87, 87, 0.3)
+      margin-left : -1px
+      margin-right : -1px
       z-Index : 1
+
+  .moods-leftbar
+    .hovered
+      float : left
+      overflow: hidden
+      background-color : rgba(87, 87, 87, 0.3)
+      opacity : 0.9
+      border: 1px solid rgba(87, 87, 87, 0.3)
+      margin : -1px
+      z-Index : 1
+
   .resource
     width : 72px
     height : 72px
     float : left
     overflow: hidden
     opacity : 0.9
-    border-radius: 7px
     z-Index : 1
-    margin-bottom : 5px
     .remove
       position: absolute;
       width: 10px;
@@ -187,7 +197,7 @@ footer
       cursor: pointer
     background-color: rgba(255, 255, 255, 0)
     width: 99%
-    height: 75px
+    height: 74px
     float: left
     margin: 0px 3px 1px 3px
     position : relative
@@ -289,11 +299,12 @@ footer
     .resources-wrap
       overflow : hidden
       top : 75px
+      left : 5px
       min-width : 72px
       min-height : 475px
       position : absolute
     .resources
-      width : 72px
+      width : 100%
       position : absolute
 
   .moods-container
