@@ -168,7 +168,7 @@ var Bar = r.Seed.extend({
             this.scope.cursor.style.top= this.scope.cursor.style.top || "0px"
             if(e.xy[1] - this.oT  - this.cOffsetY >= 0 && e.xy[1] - this.oT  - this.cOffsetY < $(this.scope.slideBar).height() - $(this.scope.cursor).height() ) {
               this.scope.cursor.style.top = e.xy[1] - this.oT  - this.cOffsetY +"px";
-              var ratio = parseInt(this.scope.cursor.style.top)/$(this.scope.slideBar).height()
+              var ratio = parseInt(this.scope.cursor.style.top)/($(this.scope.slideBar).height()+80)
               this.resourcesDiv.style.top = -ratio*$(this.resourcesDiv).height() +"px";
             }
           }.bind(this),
@@ -225,7 +225,6 @@ var Bar = r.Seed.extend({
         this.scope.resources.appendChild(this.create(r.Resource,{ src: model[0].src,title : model[0].title, id: model[0].id},'lastResource').el);
       } else if (this.side === 'leftbar') {
         var el = this.create(r.Resource,{ src: model[0].src,title : model[0].index},'lastResource').el;
-        console.log(model[0]);
         this.scope.resources.appendChild(el);
 
         /*var tmp = this.lastResource;
