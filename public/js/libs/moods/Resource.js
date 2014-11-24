@@ -88,7 +88,7 @@ sand.define('Moods/Resource', [
 									tag : ".picto.warning-picto"
 								},
 								{
-									tag : ".title ÊTES VOUS SUR?",
+									tag : ".title ÊTES VOUS SÛR?",
 								},
 								{
 									tag : ".text Vous allez supprimer une page: <span class =\"continue\">Continuer</span> ou <span class =\"cancel\">annuler</span>"
