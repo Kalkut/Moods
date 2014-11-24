@@ -146,6 +146,7 @@ sand.define('Moods/Resource', [
 					$('.moods')[0].appendChild(this.buffEl);
 					this.buffEl.style.position = "absolute";
 					this.buffEl.style.pointerEvents = "none";
+					this.buffEl.style.zIndex = 90;
 					this.fParent = this.el.parentNode;
 					this.sIndex = [].concat.apply([],this.el.parentNode.childNodes).indexOf(this.el);
 					//this.el.style.position = "absolute";
@@ -170,16 +171,25 @@ sand.define('Moods/Resource', [
 					this.cOffsetX = e.xy[0] - $(this.el).offset().left;
 					this.cOffsetY = e.xy[1] - $(this.el).offset().top;
 
-					if(this.fParent.getAttribute("side") != "leftbar") this.buffEl.style.left = e.xy[0] - this.oL /*+ $(document.body).scrollLeft()*/ - this.cOffsetX + "px";
+					this.buffEl.style.left = e.xy[0] - this.oL /*+ $(document.body).scrollLeft()*/ - this.cOffsetX + "px";
 					this.buffEl.style.top = e.xy[1] - this.oT  /*+ $(document.body).scrollTop()*/ - this.cOffsetY  + "px";
+
+					this.sX = parseInt(this.buffEl.style.left);
 
 					this.el.style.pointerEvents = "none";
 				}.wrap(this),
 				drag : function (e) {
 					if(this.deleted) return;
 
-					if(this.fParent.getAttribute("side") != "leftbar") this.buffEl.style.left = e.xy[0] - this.oL /*+ $(document.body).scrollLeft()*/ - this.cOffsetX + "px";
-					this.buffEl.style.top = e.xy[1] - this.oT /*+	$(document.body).scrollTop()*/ - this.cOffsetY + "px";
+					/*if(this.fParent.getAttribute("side") != "leftbar" ) */this.buffEl.style.left = e.xy[0] - this.oL /*+ $(document.body).scrollLeft()*/ - this.cOffsetX + "px";
+					
+					this.buffEl.style.top = e.xy[1] - this.oT - this.cOffsetY + "px";
+					//else this.buffEl.style.top = $('.resources-wrap').position().top + $('.resources-wrap').offset().top + 'px';
+
+					//else this.buffEl.style.top = parseInt(this.buffEl.style.top) +1 + 'px'
+
+					//console.log(this.contain($(this.buffEl),$('.addPage')))
+					console.log(parseInt(this.buffEl.style.top) + $(".moods-leftbar").offset().top)
 
 				}.wrap(this),
 				end: function (e) {
@@ -195,6 +205,11 @@ sand.define('Moods/Resource', [
 						e.target.parentNode.refresh(this.src);
 						if(!e.target.parentNode.getAttribute("cover")) this.query('dp').pages.all[parseInt($(".moods")[0].getAttribute("page"))-1].edit({state : e.target.parentNode.saveState() })
 						e.target.parentNode.fire("droppedOn",this.src);
+					}
+
+					else if (this.fParent.getAttribute("side") == "leftbar"){
+						console.log(e.target,this.hintDiv,Array.prototype.slice.call(this.fParent.childNodes).indexOf(this.hintDiv));
+						//if (e.target.className == ) {};
 					}
 
 					if(this.hintDiv.parentNode) this.hintDiv.parentNode.removeChild(this.hintDiv);
@@ -218,12 +233,31 @@ sand.define('Moods/Resource', [
 				next.appendChild(elem);
 				return next;
 			} else if (next.parentNode.getAttribute("dropzone")){
-				e.xy[1] - $(next).offset().top <  parseInt($(next).height())*0.5 ? $(elem).insertBefore($(next)) : $(elem).insertAfter($(next));
+				//console.log(e.xy[1] - $(next).position().top)
+				e.xy[1] - $(next).offset <  parseInt($(next).height())*0.5 ? $(elem).insertBefore($(next)) : $(elem).insertAfter($(next));
 				return next.parentNode;
 			}
 
 			return null;
 		},
+
+		contain : function ($div1, $div2) {
+      var x1 = $div1.offset().left;
+      var y1 = $div1.offset().top;
+      var h1 = $div1.outerHeight(true);
+      var w1 = $div1.outerWidth(true);
+      var b1 = y1 + h1;
+      var r1 = x1 + w1;
+      var x2 = $div2.offset().left;
+      var y2 = $div2.offset().top;
+      var h2 = $div2.outerHeight(true);
+      var w2 = $div2.outerWidth(true);
+      var b2 = y2 + h2;
+      var r2 = x2 + w2;
+
+      if (x1 >= x2 && y1 >= y2 && b1 <= b2 && r1 <= r2) return true;
+      return false;
+    }
 
 
 

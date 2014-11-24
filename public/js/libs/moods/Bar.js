@@ -186,33 +186,16 @@ var Bar = r.Seed.extend({
         }.bind(this));
         this.query('dp').pages.on('delete', this.deleteResource.bind(this));
 
+        this.resourcesDiv.putAt = function (index,el) {
+          if(index > 0) this.resourcesDiv.insertBefore(el,this.resourcesDiv.childNodes[i]);
+        }.bind(this)
         
-
         this.resourcesDiv.changePage = function (index) {
           $(".moods")[0].changePage(index);
         }.bind(this)
       }
 
-      /*this.handle = r.handle(this.el);
-
-      this.handle.drag({
-        start : function (e) {
-          this.sL = this.resourcesDiv.style.left;
-          this.sT = this.resourcesDiv.style.top;
-
-          this.oL = $(this.resourcesDiv).offset().left;
-          this.oT = $(this.resourcesDiv).offset().top;
-
-          this.cOffsetX = e.xy[0] - $(this.resourcesDiv).offset().left;
-          this.cOffsetY = e.xy[1] - $(this.resourcesDiv).offset().top;
-        }.bind(this),
-        drag : function (e) {
-          if(e.shiftKey){
-            console.log( e.xy[0] - this.oL  - this.cOffsetX + "px")
-            this.resourcesDiv.style.left = e.xy[0] - this.oL - this.cOffsetX + "px";
-          }
-        }.bind(this)
-      }) */
+      
 
     },
 
@@ -241,6 +224,8 @@ var Bar = r.Seed.extend({
     deleteResource: function(model, options) {
       ;
     },
+
+
 
 
 
