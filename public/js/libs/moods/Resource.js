@@ -91,7 +91,7 @@ sand.define('Moods/Resource', [
 									tag : ".title ÊTES VOUS SÛR?",
 								},
 								{
-									tag : ".text Vous allez supprimer une page: <span class =\"continue\">Continuer</span> ou <span class =\"cancel\">annuler</span>"
+									tag : ".text Vous allez supprimer une page: <span class =\"continue\">Continuer ?</span> Ou <span class =\"cancel\">annuler ?</span>"
 								}
 							]
 						}
