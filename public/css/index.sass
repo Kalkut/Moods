@@ -4,8 +4,8 @@ html
 body
   margin: 0
   padding: 0
-  height: 100%
-  width: 100%
+  min-height: 100%
+  min-width: 100%
 footer
   position: relative
   float: left
@@ -23,15 +23,74 @@ footer
   float: left
   width: 100%
   height: 100%
+  .popup 
+    position : absolute 
+    //overflow : hidden
+  .popup-fullscreen, .popup-mask
+    z-index : 999
+    position : fixed
+    top : 0
+    left : 0
+    right : 0
+    bottom : 0
+    background-color : black
+    opacity : .35
+  .popup 
+    z-index : 1000
+    width : 420px
+    border-radius : 5px
+    background-color : white
+    position : fixed
+    top : 50%
+    left : 50%
+    margin-top : -100px
+    margin-left : -210px
+    .popup-header, .popup-content
+      float : left
+      clear : left
+    .popup-header
+      height : 50px
+      .logo, .close
+        width : 29px
+        height : 29px
+      .close 
+        position : absolute
+        right : 15px
+        top : 15px
+        background-image : url(/img/popupclose.png)
+        background-size : contain
+        background-repeat : no-repeat
+    .popup-content
+      margin : 10px
+      padding : 20px
+      border : 1px solid #eee
+      width : 357px
+      .title
+        font-family : futura-bold
+        font-size : 15px
+        color : rgb(80, 80, 80)
+        margin-bottom : 10px
+        text-align : center
+      span
+        text-decoration : underline
+      .text
+        font-size : 13px
+        font-family : futura-light
+        line-height : 18px
+        color : #777
+        text-align : center
+      .picto
+        width : 120px
+        height : 100px
+        margin-left: 119px
+        margin-bottom: 20px
   .upload-wrapper
-    -webkit-filter: invert(100%)
-    -moz-filter : invert(100%)
     display: inline
     float: left
     width: 6.7%
     height: 75px
-    border-right: 1px solid #2B2B2B
-    background-color : #000000
+    border-right: 1px solid #D4D4D4
+    background-color : #FFFFFF
     background-image : url("/img/upload.png")
     background-size : contain
     background-repeat : no-repeat
@@ -53,6 +112,7 @@ footer
       height: 100%
       width: 100%
       z-index: 1
+      opacity : 0
       box-sizing: border-box
       padding: 6px 0px
       font-size: 18px
@@ -79,6 +139,15 @@ footer
     opacity : 0.9
     border-radius: 7px
     z-Index : 1
+    margin-bottom : 5px
+    .remove
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-Color: #A7A7A7;
+      right: 0px;
+      z-Index: 5;
     .picto
       background-size: cover
       background-repeat : no-repeat
@@ -116,11 +185,11 @@ footer
       background-size : contain
       background-repeat : no-repeat
       background-color : #FFFFFF
-      width : 6.7%
+      width : 6.8%
       height : 100%
       float: left
-      border-right: 1px solid #2B2B2B
-      border-bottom : 1px solid #2B2B2B
+      border-right: 1px solid #D4D4D4
+      border-bottom : 1px solid #D4D4D4
     .previous
       position : relative
       background-color : #FFFFFF
@@ -130,7 +199,8 @@ footer
       background-size : contain
       background-repeat : no-repeat
       float : left
-      border-right: 1px solid #2B2B2B
+      border-right: 1px solid #D4D4D4
+      border-left: 1px solid #D4D4D4
     .next
       position : relative
       background-color : #FFFFFF
@@ -140,7 +210,7 @@ footer
       width : 6.7%
       height : 100%
       float : left
-      border-right: 1px solid #2B2B2B
+      border-right: 1px solid #D4D4D4
     .resources-wrap
       overflow : hidden
       min-width : 53.7%
@@ -154,21 +224,43 @@ footer
 
   .moods-leftbar
     background-color: #FFFFFF
-    width: 6.7%
+    width: 6.75%
     height: 550px
     float: left
     margin-left: 3px
     margin-right: 20px
     position : relative
+    .slideBar
+      height : 86.8%
+      width : 5px
+      background-color: #FFFFFF
+      position : absolute
+      right : 0px
+      border-left : 1px solid #D4D4D4
+      .cursor
+        height : 2%
+        width : 100%
+        background-color : #D4D4D4
+        position : absolute
+        top : 0px
+    .addPage
+      position : relative
+      width : 100%
+      height : 13%
+      border-bottom : 1px solid #D4D4D4
+      border-right : -1px solid #D4D4D4
+      background-color : #FFFFFF
+      background-image : url('/img/add page.png')
+      background-size : contain
+      background-repeat : no-repeat  
     .resources-wrap
       overflow : hidden
-      top : 30px
+      top : 75px
       min-width : 72px
       min-height : 475px
       position : absolute
     .resources
       width : 72px
-      height : 80%
       position : absolute
 
   .moods-container
@@ -317,7 +409,7 @@ footer
         width: 80%
         float : left
         position : relative
-        height: 100%
+        height: 99%
         background-color : #FFFFFF
         .case
           top : 5%

@@ -11,9 +11,9 @@ sand.define('Moods/Cover', [
     '+init' : function (opt) {
       
       this.collection = [[[75,50,200,200],[375,50,200,200],[75,300,500,200]],[[75,50,200,450],[375,50,200,200],[375,300,200,200]],[[75,50,200,200],[375,50,200,200],[75,300,200,200],[375,300,200,200]]]
+      //this.types = [["img","txt","img","img"],["img","txt","img","img"],["img","txt","img","img"]];
       this.cIndex = 0
       this.layout = opt.layout || this.collection[this.cIndex] //[[75,50,200,450],[375,50,200,200],[375,300,200,200]]// [[75,50,200,200],[375,50,200,200],[75,300,200,200],[375,300,200,200]];
-      
       this.el = r.toDOM('.cover');
       this.images = [];
       
@@ -37,7 +37,7 @@ sand.define('Moods/Cover', [
 
     setCover : function () {
       for (var i = 0, n = this.layout.length; i < n; i++) {
-        var tCase = this.create(r.Case,{ width : this.layout[i][2], height : this.layout[i][3], imgSrc : this.images && this.images[i] ? this.images[i] : "" });
+        var tCase = this.create(r.Case,{ width : this.layout[i][2],  height : this.layout[i][3], imgSrc : this.images && this.images[i] ? this.images[i] : "" });
         tCase.el.style.left = this.layout[i][0] +'px'
         tCase.el.style.top = this.layout[i][1] + 'px'
         this.el.appendChild(tCase.el);

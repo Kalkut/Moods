@@ -23,9 +23,22 @@ sand.define('Moods/Resource', [
 		'+init' : function(input) {
 			this.static = input.static;
 			this.title = input.title;
+			this.scope = {};
+
 			this.el = r.toDOM({
 				tag : '.resource',
 				children : [
+					{
+						tag : '.remove',
+						/*events : {
+							mouseup : function () {
+								
+							}
+						},*/
+						style : {
+							zIndex : 10
+						}
+					},
 					{
 						tag : '.picto',
 						style : {
@@ -47,7 +60,49 @@ sand.define('Moods/Resource', [
 					click: function(e) {
 						console.log('Fire set page to resource id ' + this.id);
 				}.bind(this)}
-			});
+			},this.scope);
+
+			this.mask = r.toDOM(".popup-mask");
+			
+			this.popUp = r.toDOM({
+					tag : ".popup#reset-token-expired-popup",
+					children : [
+						{
+							tag : ".popup-header",
+							children : [
+								{
+									tag : '.close',
+									events : {
+										click : function () {
+											$(".moods")[0].removeChild(this.mask);
+											$(".moods")[0].removeChild(this.popUp);
+										}.bind(this)
+									}
+								}
+							]
+						},
+						{
+							tag : ".popup-content#reset-token-expired-landing-conten",
+							children : [
+								{
+									tag : "picto warning-picto"
+								},
+								{
+									tag : ".title ÊTES VOUS SUR?",
+								},
+								{
+									tag : ".text Vous allez supprimer une page: <span class =\"continue\">Continuer</span> ou <span class =\"cancel\">annuler</span>"
+								}
+							]
+						}
+					]
+			})
+
+			
+
+			this.el.scopeMe = function(string) {
+				return this.scope[string];
+			}.bind(this)
 
 			this.src = input.src;
 
@@ -58,8 +113,33 @@ sand.define('Moods/Resource', [
 			this.handle.drag({
 				start : function (e){
 					e.preventDefault();
-					
-					if(this.el.parentNode.getAttribute("side") === "leftbar") this.el.parentNode.changePage(this.title);
+					if(e.target == this.scope.remove && this.el.parentNode.getAttribute("side") === "leftbar") {
+						$(".moods")[0].appendChild(this.mask);
+						$(".moods")[0].appendChild(this.popUp);
+						
+						$(".continue")[0].onclick = function () {
+							this.query('dp').pages.all[parseInt(this.scope.label.innerHTML)-1].remove();
+							this.el.parentNode.deleteMe(this.el);
+							this.deleted = true;
+							$(".moods")[0].removeChild(this.mask);
+							$(".moods")[0].removeChild(this.popUp);
+							return;
+						}.bind(this);
+
+						$(".cancel")[0].onclick = function () {
+							$(".moods")[0].removeChild(this.mask);
+							$(".moods")[0].removeChild(this.popUp);
+							return;
+						}.bind(this);
+
+						
+					} else if (e.target == this.scope.remove && this.el.parentNode.getAttribute("side") === "topbar") {
+						this.query('dp').resources.where("title",this.scope.label.innerHTML)[0].remove();
+						this.el.parentNode.deleteMe(this.el);
+						this.deleted = true;
+						return;
+					}
+
 
 					this.buffEl = this.el.cloneNode(true);
 					$('.moods')[0].appendChild(this.buffEl);
@@ -89,28 +169,28 @@ sand.define('Moods/Resource', [
 					this.cOffsetX = e.xy[0] - $(this.el).offset().left;
 					this.cOffsetY = e.xy[1] - $(this.el).offset().top;
 
-					this.buffEl.style.left = e.xy[0] - this.oL /*+ $(document.body).scrollLeft()*/ - this.cOffsetX + "px";
+					if(this.fParent.getAttribute("side") != "leftbar") this.buffEl.style.left = e.xy[0] - this.oL /*+ $(document.body).scrollLeft()*/ - this.cOffsetX + "px";
 					this.buffEl.style.top = e.xy[1] - this.oT  /*+ $(document.body).scrollTop()*/ - this.cOffsetY  + "px";
 
 					this.el.style.pointerEvents = "none";
 				}.wrap(this),
 				drag : function (e) {
+					if(this.deleted) return;
 
-
-					this.buffEl.style.left = e.xy[0] - this.oL /*+ $(document.body).scrollLeft()*/ - this.cOffsetX + "px";
+					if(this.fParent.getAttribute("side") != "leftbar") this.buffEl.style.left = e.xy[0] - this.oL /*+ $(document.body).scrollLeft()*/ - this.cOffsetX + "px";
 					this.buffEl.style.top = e.xy[1] - this.oT /*+	$(document.body).scrollTop()*/ - this.cOffsetY + "px";
 
 				}.wrap(this),
 				end: function (e) {
-
+					if(this.deleted) return;
 					this.hint(e,this.hintDiv);
 					
-					if(e.target.className == 'case' && e.target.refresh) {
+					if(this.fParent.getAttribute("side") != "leftbar" && e.target.className == 'case' && e.target.refresh) {
 						e.target.refresh(this.src);
 						if(!e.target.getAttribute("cover")) this.query('dp').pages.all[parseInt($(".moods")[0].getAttribute("page"))-1].edit({state : e.target.saveState() })
 						e.target.fire("droppedOn",this.src);
 					}
-					else if (e.target.parentNode.className == 'case' && e.target.parentNode.refresh) {
+					else if (this.fParent.getAttribute("side") != "leftbar" && e.target.parentNode.className == 'case' && e.target.parentNode.refresh) {
 						e.target.parentNode.refresh(this.src);
 						if(!e.target.parentNode.getAttribute("cover")) this.query('dp').pages.all[parseInt($(".moods")[0].getAttribute("page"))-1].edit({state : e.target.parentNode.saveState() })
 						e.target.parentNode.fire("droppedOn",this.src);
@@ -122,6 +202,8 @@ sand.define('Moods/Resource', [
 					this.el.style.pointerEvents = "auto"
 					this.el.style.left = null;
 					this.el.style.top = null;
+
+					if(this.el.parentNode.getAttribute("side") === "leftbar") this.el.parentNode.changePage(this.title);
 				}.wrap(this)
 			});
 
@@ -140,7 +222,9 @@ sand.define('Moods/Resource', [
 			}
 
 			return null;
-		}
+		},
+
+
 
 	})
 		return ResourceSeed

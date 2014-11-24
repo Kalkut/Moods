@@ -37,7 +37,7 @@ var Bar = r.Seed.extend({
               mouseup : function (e) {
                 this.resourcesDiv.style.left = this.resourcesDiv.style.left || "0px"
                 this.resourcesDiv.style.top = this.resourcesDiv.style.top || "0px";
-                console.log($(this.resourcesDiv).width()+parseInt(this.resourcesDiv.style.left),$(this.scope["resources-wrap"]).width())
+                //console.log($(this.resourcesDiv).width()+parseInt(this.resourcesDiv.style.left),$(this.scope["resources-wrap"]).width())
                 if( (opt.side === "topbar" && $(this.resourcesDiv).width() -72 > $(this.scope["resources-wrap"]).width() && $(this.resourcesDiv).width() > - parseInt(this.resourcesDiv.style.left)) ||  ( opt.side === "leftbar" && $(this.resourcesDiv).height() > $(this.scope["resources-wrap"]).height() && $(this.resourcesDiv).height() > - parseInt(this.resourcesDiv.style.top))) opt.side === "topbar" ? this.resourcesDiv.style.left = parseInt(this.resourcesDiv.style.left) + 72 + "px" : this.resourcesDiv.style.top = parseInt(this.resourcesDiv.style.top) + 72 + "px"
                 /*var k = 0;
                 var inLoop = false;
@@ -62,7 +62,8 @@ var Bar = r.Seed.extend({
               mouseup : function (e) {
                 this.resourcesDiv.style.left = this.resourcesDiv.style.left || "0px";
                 this.resourcesDiv.style.top = this.resourcesDiv.style.top || "0px";
-                if( $(this.resourcesDiv).width() > $(this.scope["resources-wrap"]).width() && $(this.resourcesDiv).width()+parseInt(this.resourcesDiv.style.left) > 72) opt.side === "topbar"  ? this.resourcesDiv.style.left = parseInt(this.resourcesDiv.style.left) - 72 + "px" : this.resourcesDiv.style.top = parseInt(this.resourcesDiv.style.top) - 72 + "px"
+                //console.log($(this.resourcesDiv).width(), $(this.scope["resources-wrap"]).width(),$(this.resourcesDiv).width()+parseInt(this.resourcesDiv.style.left),$(this.resourcesDiv).width()+parseInt(this.resourcesDiv.style.left) > 72)
+                if( $(this.resourcesDiv).width() >= $(this.scope["resources-wrap"]).width() && $(this.resourcesDiv).width()+parseInt(this.resourcesDiv.style.left) > 72) opt.side === "topbar"  ? this.resourcesDiv.style.left = parseInt(this.resourcesDiv.style.left) - 72 + "px" : this.resourcesDiv.style.top = parseInt(this.resourcesDiv.style.top) - 72 + "px"
                 /*var k = 0;
                 var j = this.resourcesDiv.childNodes -1;
                 var temp = this.resourcesDiv.childNodes ? this.resourcesDiv.childNodes[k] : null
@@ -95,6 +96,15 @@ var Bar = r.Seed.extend({
         this.fire('onResourceSwaped', {from: from, to: to});
       }.bind(this)
 
+      this.resourcesDiv.deleteMe = function (el) {
+          this.resourcesDiv.removeChild(el);
+          if(this.side == "leftbar"){
+            for(var i = parseInt(el.scopeMe('label').innerHTML), n = this.resourcesDiv.childNodes.length; i < n; i++) {
+            this.resourcesDiv.childNodes[i].scopeMe("label").innerHTML = i;
+            }
+          }
+      }.bind(this);
+
       if(this.side == "topbar"){
         this.query('dp').resources.on('insert', this.insertResource.bind(this));
         this.query('dp').resources.on('delete', this.deleteResource.bind(this));
@@ -106,25 +116,10 @@ var Bar = r.Seed.extend({
         }.bind(this);*/
 
         this.addPage = r.toDOM({
-          tag : '.resource',
-          children : [
-            {
-              tag : '.picto',
-              style : {
-                backgroundImage : 'url(' + "" + ')',
-              }
-            },
-            {
-              tag : '.label ' + "Nouvelle page",
-            }
-          ],
-          style : {
-            position : "relative",
-          },
+          tag : '.addPage',
           events: {
             mousedown: function () {
-              console.log("bob")
-              this.query('dp').pages.insert({ src : "", index : this.resourcesDiv.childNodes.length - 1, state : "" });
+              this.query('dp').pages.insert({ src : "", index : this.resourcesDiv.childNodes.length, state : "" });
             }.bind(this)
           }
         });
@@ -152,15 +147,44 @@ var Bar = r.Seed.extend({
             }.bind(this)
           }
         });
+
+        this.slideBar = r.toDOM({
+          tag : '.slideBar',
+          children : [
+            {
+              tag : '.cursor'
+            }
+          ]
+        },this.scope);
+
+        r.handle(this.scope.cursor).drag({
+          start : function (e) {
+            this.oT = $(this.scope.slideBar).offset().top;
+            this.testX = e.xy[0];
+
+            this.cOffsetY = e.xy[1] - $(this.scope.cursor).offset().top;
+          }.bind(this),
+          drag : function (e) {
+            this.scope.cursor.style.top= this.scope.cursor.style.top || "0px"
+            if(e.xy[1] - this.oT  - this.cOffsetY >= 0 && e.xy[1] - this.oT  - this.cOffsetY < $(this.scope.slideBar).height() - $(this.scope.cursor).height() ) {
+              this.scope.cursor.style.top = e.xy[1] - this.oT  - this.cOffsetY +"px";
+              var ratio = parseInt(this.scope.cursor.style.top)/$(this.scope.slideBar).height()
+              this.resourcesDiv.style.top = -ratio*$(this.resourcesDiv).height() +"px";
+            }
+          }.bind(this),
+        })
         
         this.resourcesDiv.appendChild(this.cover);
-        this.resourcesDiv.appendChild(this.addPage);
+        this.el.insertBefore(this.addPage,this.scope['resources-wrap']);
+        this.el.appendChild(this.slideBar);
 
         this.query('dp').pages.on('insert', function(model) {
           //this.insertResource(this.query('dp').resources.where(function(e) { return e.id === model[0].resourceID}), model[0].id);
           this.insertResource(model);
         }.bind(this));
         this.query('dp').pages.on('delete', this.deleteResource.bind(this));
+
+        
 
         this.resourcesDiv.changePage = function (index) {
           $(".moods")[0].changePage(index);
@@ -202,7 +226,7 @@ var Bar = r.Seed.extend({
       } else if (this.side === 'leftbar') {
         var el = this.create(r.Resource,{ src: model[0].src,title : model[0].index},'lastResource').el;
         console.log(model[0]);
-        this.scope.resources.insertBefore(el, this.addPage);
+        this.scope.resources.appendChild(el);
 
         /*var tmp = this.lastResource;
         tmp.el.addEventListener('mousedown', function(e) {

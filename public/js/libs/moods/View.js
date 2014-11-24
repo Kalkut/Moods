@@ -25,6 +25,20 @@ sand.define('Moods/View',['Moods/Case','Moods/Cover','DOM/toDOM','Moods/BP','See
 			this.pageCase.on('droppedOn', function (src) {
 				this.fire('updatePreview',src,this.index)
 			}.bind(this))
+
+			/*document.body.addEventListener("keyup", function (e) {
+				var dpPages = this.query('dp').pages.all;
+				if(e.keyCode == 38){
+					this.index--;
+					this.changePage(this.index <= 0 ? null : dpPages[this.index-1])
+				}else if(e.keyCode == 40){
+					if(this.index+1 <= dpPages.length) {
+						this.index++;
+						this.changePage(dpPages[this.index-1])
+					}
+				}
+			}.bind(this))*/
+
 		},
 
     setCurrent: function(model) {
@@ -39,13 +53,14 @@ sand.define('Moods/View',['Moods/Case','Moods/Cover','DOM/toDOM','Moods/BP','See
     		this.pageCase.el.style.display = "block";
     		this.pageCase.setState(model.state);
     	} else {
+    		this.index = 0
     		this.cover.el.style.display = "block";
     		this.pageCase.el.style.display = "none";
     	}
     },
 
     shuffle : function () {
-    	this.cover.shuffle();
+    	if(this.index == 0) this.cover.shuffle();
     }
 
   })
